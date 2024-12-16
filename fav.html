@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourite Products</title>
+    <style>
+        body {
+            background-color: lightgray;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        nav {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            background-color: aliceblue;
+            height: 8vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        #title {
+            font-size: 24px;
+            font-family: cursive;
+        }
+
+        .btn {
+            --color: #00A97F;
+            --color2: rgb(10, 25, 30);
+            background-color: transparent;
+            border-radius: 6px;
+            border: .3px solid var(--color);
+            transition: .5s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            z-index: 1;
+            font-weight: 300;
+            font-size: 17px;
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+            text-transform: uppercase;
+            color: var(--color);
+            margin: 10px 0px 5px 27%;
+            padding: 8px;
+            height: 5vh;
+            }
+        
+            .btn::after, .btn::before {
+             content: '';
+             display: block;
+             height: 100%;
+             width: 100%;
+             transform: skew(90deg) translate(-50%, -50%);
+             position: absolute;
+             inset: 50%;
+             left: 25%;
+             z-index: -1;
+             transition: .5s ease-out;
+             background-color: var(--color);
+            }
+        
+            .btn::before {
+             top: -50%;
+             left: -25%;
+             transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+            }
+        
+            .btn:hover::before {
+             transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+            }
+        
+            .btn:hover::after {
+             transform: skew(45deg) translate(-40%, -50%);
+            }
+        
+            .btn:hover {
+             color: var(--color2);
+            }
+        
+            .btn:active {
+             filter: brightness(.7);
+             transform: scale(.98);
+            }
+        
+        #parent {
+            padding: 2% 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        #parent > div {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+            padding: 15px;
+            width: 70%;
+            background-color: aqua;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        #parent > div:hover {
+            transform: translateY(-5px);
+        }
+
+        img {
+            margin-left: 30%;
+            height: 150px;
+            width: 150px;
+            background-color: white;
+            padding: 2% 26%;
+            margin: 0px;
+        }
+
+        .card-header {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card-category {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .card-price {
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        @media (min-width: 994px) and (max-width: 1025px) {
+  .container {
+      display: grid;
+        grid-template-columns: auto auto auto;
+    }
+    .container>div {
+      width: 95%;
+      height: 51vh;
+      padding: 10px;
+}
+.container>div>div {
+    padding: 5px 0px;
+    font-size: 18px;
+  }
+
+nav{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: aliceblue;
+        height: 8vh;
+        display: flex;
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        padding-top: 2%;
+    }
+    #title {
+      font-size: 30px;
+      margin-left: 70px;
+    }
+    /* Nav fav button */
+    .btn {
+      width: 175px;
+        font-weight: 300;
+        font-size: 18px;
+        margin: 0px 0px 0px 35%;
+        padding: 10px;
+        height: 5vh;
+    }
+    /* Nav add button */
+    .btn1 {
+      width: 175px;
+        font-weight: 300;
+        font-size: 18px;
+        margin: 0px 0px 0px 4%;
+        padding: 10px;
+        height: 5vh;
+    }
+    img {
+      height: 150px;
+    width: 150px;
+    background-color: white;
+    padding: 2% 26%;
+    margin: 0px;
+    }
+}
+
+/* Medium devices (tablets, 992px and below) */
+@media (min-width: 770px)and(max-width: 993px) {
+    .container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #title {
+        font-size: 24px;
+        margin-left: 35%;
+    }
+
+    .btn, .btn1 {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+}
+
+/* Small devices (phones, 768px and below) */
+@media (min-width:578px) and (max-width: 769px) {
+    .container {
+      display: grid;
+        grid-template-columns: auto auto;
+    }
+    .container>div {
+    width: 85%;
+    height: 55vh;
+    padding: 10px;
+}
+.container>div>div {
+    padding: 5px 0px;
+    font-size: 12px;
+}
+
+nav{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: aliceblue;
+        height: 8vh;
+        display: flex;
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        padding-top: 2%;
+    }
+    #title {
+      font-size: 22px;
+      margin-left: 70px;
+    }
+    /* Nav fav button */
+    .btn {
+      width: 120px;
+        font-weight: 300;
+        font-size: 13px;
+        margin: 0px 0px 0px 35%;
+        padding: 8px;
+        height: 5vh;
+    }
+    /* Nav add button */
+    .btn1 {
+      width: 120px;
+        font-weight: 300;
+        font-size: 13px;
+        margin: 0px 0px 0px 5%;
+        padding: 8px;
+        height: 5vh;
+    }
+    img {
+      height: 150px;
+    width: 150px;
+    background-color: white;
+    padding: 2% 26%;
+    margin: 0px;
+    }
+}
+
+/* Extra small devices (very small phones, 576px and below) */
+@media (min-width:377px) and (max-width: 577px) {
+  nav{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: aliceblue;
+        height: 8vh;
+        display: flex;
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        padding-top: 2%;
+    }
+    #title {
+        font-size: 16px;
+        margin-left: 30px;
+    }
+    /* Nav fav button */
+    .btn {
+      width: 120px;
+        font-weight: 300;
+        font-size: 13px;
+        margin: 0px 0px 0px 5%;
+        padding: 8px;
+        height: 5vh;
+    }
+    /* Nav add button */
+    .btn1 {
+      width: 120px;
+        font-weight: 300;
+        font-size: 13px;
+        margin: 0px 0px 0px 5%;
+        padding: 8px;
+        height: 5vh;
+    }
+    .container {
+      display: grid;
+        grid-template-columns: auto;
+    }
+
+    .container>div {
+        font-size: 0.9em;
+    }
+
+    img {
+        width: 120px;
+        height: 150px;
+    }
+
+    .card-header {
+        font-size: 11px;
+    }
+
+    .card-category, .card-price {
+        font-size: 0.9em;
+    }
+}
+
+/* Smallest devices (375px and below) */
+@media (max-width: 376px) {
+  nav{
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        background-color: aliceblue;
+        height: 8vh;
+        display: flex;
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        padding-top: 2%;
+    }
+    #title {
+        font-size: 16px;
+        margin-left: 68px;
+    }
+    img {
+        width: 120px;
+        height: 150px;
+    }
+    /* Nav fav button */
+    .btn {
+      width: 60px;
+        font-weight: 300;
+        font-size: 7px;
+        margin: 0px 0px 0px 5%;
+        padding: 8px;
+        height: 5vh;
+    }
+    /* Nav add button */
+    .btn1 {
+      width: 60px;
+        font-weight: 300;
+        font-size: 8px;
+        margin: 1px 0px 0px 3%;
+        padding: 0px;
+        height: 5vh;
+    }
+    .container {
+      display: grid;
+        grid-template-columns: auto;
+    }
+    .container >div {
+        font-size: 0.8em;
+        width: 80%;
+    }
+
+    /* Button Adjustments */
+    .button {
+        width: 100px; /* Reduced button width */
+        height: 36px; /* Adjusted height */
+        margin: 5px 0; /* Reduced margin */
+        padding: 5px; /* Reduced padding */
+        font-size: 0.8em; /* Scaled down font size */
+        border: 1px solid #2e8644; /* Slightly darker border for visibility */
+        background-color: #34974d; /* Maintained consistent background color */
+        display: inline-block; /* Ensures inline placement */
+    }
+
+    .button .svg {
+    width: 0px;
+    stroke: #fff;
+}
+    .button .button__text {
+        font-size: 0.75em; /* Adjusted font size */
+        transform: translateX(0); /* No transform for small screens */
+    }
+
+    .button .button__icon {
+        width: 20px; /* Adjusted icon size */
+        height: auto; /* Flexible height */
+        transform: translateX(0); /* Aligned properly */
+    }
+
+    /* Unordered List (ul) Adjustments */
+    ul {
+        gap: 10px; /* Reduced gap for smaller screens */
+        padding: 0; /* No extra padding */
+        display: inline-block; /* Ensures list items remain inline */
+        margin-top: 10px; /* Added space between list and other elements */
+    }
+
+    ul li {
+        width: 30px; /* Adjusted size for small screens */
+        height: 30px; /* Adjusted size for small screens */
+        top: 0; /* Removed vertical offset */
+        left: 0; /* Removed horizontal offset */
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Reduced shadow intensity */
+        transition: 0.3s; /* Slightly faster transitions */
+    }
+
+    ul li:hover {
+        width: 80px; /* Reduced hover width */
+    }
+
+    ul li .icon {
+        font-size: 16px; /* Adjusted icon size for smaller buttons */
+    }
+
+    ul li .title {
+        font-size: 0.7em; /* Scaled down font size */
+    }
+
+
+
+    .card-header {
+        font-size: 0.9em;
+    }
+
+    .card-category, .card-price {
+        font-size: 0.8em;
+    }
+}
+    </style>
+</head>
+<body>
+    <nav id="nav">
+        <div id="title">Favourite Products</div>
+        <button onclick="home()" class="btn">Home</button>
+    </nav>
+    <div id="parent"></div>
+    <script>
+        const getdata = JSON.parse(localStorage.getItem("favdetails"));
+        console.log(getdata);
+
+        getdata?.forEach(val => {
+            const parent = document.getElementById("parent");
+
+            // Create card elements
+            const child = document.createElement("div");
+            const img = document.createElement("img");
+            const title = document.createElement("div");
+            const category = document.createElement("div");
+            const price = document.createElement("div");
+
+            // Set content
+            img.src = val.image;
+            title.innerText = val.title;
+            title.classList.add("card-header");
+            category.innerText = "Category: " + val.category;
+            category.classList.add("card-category");
+            price.innerText = "Price: $" + val.price;
+            price.classList.add("card-price");
+
+            // Append elements to card
+            child.append(img, title, category, price);
+            parent.append(child);
+        });
+        function home(){
+            window.open("index.html","_self");
+        }
+    </script>
+</body>
+</html>
+
